@@ -12,6 +12,7 @@ Expense Manager App Created in React.js and Firebase as Backend.
 
 <img src="src/assets/Screenshot from 2023-11-06 16-42-34.png">
 <img src="src/assets/Screenshot from 2023-11-06 17-27-21.png">
+[Screencast from 06-11-23 06:00:21 PM EST.webm](https://github.com/raghavnarula/expense-manager/assets/48481966/da62f273-6440-4eb2-bd93-6f6d344ffc08)
 
 
 Future Taks
