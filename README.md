@@ -1,8 +1,20 @@
-# React + Vite
+## Expense Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Expense Manager App Created in React.js and Firebase as Backend.
 
-Currently, two official plugins are available:
+<p float="left">
+<img src="src/assets/google.svg" width="150" height="200" />
+<img src="src/assets/react.svg" width="150" height="200" />
+<img src="src/assets/firebase.svg" width="150" height="200" />
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h3>Learning About React Hooks and Created Custom Hooks!</h3>
+
+<img src="src/assets/Screenshot from 2023-11-06 16-42-34.png">
+<img src="src/assets/Screenshot from 2023-11-06 17-27-21.png">
+
+
+Future Taks
+- [ ] Add Testing through Jest
+- [ ] UI Upgrade
+- [ ] Suggestions and Algorithms
