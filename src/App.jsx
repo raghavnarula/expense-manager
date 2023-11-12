@@ -1,5 +1,6 @@
 import Auth from './pages/auth/'
 import ExpenseTracker from './pages/expense-tracker/index'
+import { useRouteError } from "react-router-dom";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -8,6 +9,7 @@ import Root from './pages/root/index'
 
 function App() {
 
+  
   const router = createBrowserRouter([
     {
       path: "/",
@@ -15,7 +17,8 @@ function App() {
     },
     {
       path: "/expenses",
-      element: <ExpenseTracker/>,
+      element:<ExpenseTracker/>,
+      errorElement: <Root />,
     },
     {
       path: "/root",
