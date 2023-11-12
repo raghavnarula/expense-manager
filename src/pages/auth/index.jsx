@@ -1,20 +1,17 @@
 import {auth,provider} from '../../config/firebase-config'
 import { signInWithPopup } from "firebase/auth";
-import { useCookies } from 'react-cookie'
+import Cookies from 'js-cookie';
 import {useNavigate} from 'react-router-dom'
 import './styles.css'
 
-
 const Auth = () => {
-    const [cookies, setCookie] = useCookies(["cookie-name"])
     const navigate = useNavigate();
     const signInWithGoogle = async ()=>{
         const results = await signInWithPopup(auth,provider)
-        console.log(results)
-        setCookie('userID',results.user.uid)
-        setCookie('name',results.user.displayName)
-        setCookie('profilePhoto',results.user.photoURL)
-        setCookie('isAuth',true)
+        Cookies.set('userID',results.user.uid,{ expires: 7 })
+        Cookies.set('name',results.user.displayName,{ expires: 7 })
+        Cookies.set('profilePhoto',results.user.photoURL,{ expires: 7 })
+        Cookies.set('isAuth',true,{ expires: 7 })
         navigate('/expenses')
     }
     return (

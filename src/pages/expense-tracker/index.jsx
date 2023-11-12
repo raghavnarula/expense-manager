@@ -1,11 +1,11 @@
 import './styles.css'
 import { useAddTransaction } from '../../hooks/useAddTransaction'
-import { useCookies } from 'react-cookie'
 import { useEffect, useReducer,useState } from 'react';
 import {useGetTransactions} from '../../hooks/useGetTransactions';
+import { Link } from 'react-router-dom';
+import Cookies from "js-cookie";
 
 const ExpenseTracker = () => {
-  const [cookies, setCookie] = useCookies(['cookie-name']);
   const {addTransaction} = useAddTransaction(); 
   const {allTransactions,allIncome,allExpenses} = useGetTransactions();
   const [income,setIncome] = useState(0)
@@ -26,14 +26,14 @@ const ExpenseTracker = () => {
   })
 
   const getData = async ()=>{
-    const querySnapshot = await allTransactions(cookies.userID)
+    const querySnapshot = await allTransactions(Cookies.get("userID"))
     let updatedTransactions = [];
     querySnapshot.forEach((doc) => {
       updatedTransactions.push(doc.data());
     });
     setTransactions(updatedTransactions);
-    setIncome(await allIncome(cookies.userID))
-    setExpense(await allExpenses(cookies.userID))
+    setIncome(await allIncome(Cookies.get("userID")))
+    setExpense(await allExpenses(Cookies.get("userID")))
   }
 
   const onSubmit = async (e) => {
@@ -46,12 +46,20 @@ const ExpenseTracker = () => {
     getData()
   },[])
   
+  const removeCookies = ()=>{
+    Cookies.remove("firstName")
+    Cookies.remove("isAuth")
+    Cookies.remove("name")
+    Cookies.remove("profilePhoto")
+    Cookies.remove("userID")
+  }
+
   return (
     <>
       <div className="expense-tracker">
         <div className="container">
-          <h1> {cookies.name.substring(0, cookies.name.indexOf(' ')).charAt(0).toUpperCase()
-              + cookies.name.substring(0, cookies.name.indexOf(' ')).slice(1)}'s Expense Tracker</h1>
+          <h1> {Cookies.get("name").substring(0, Cookies.get("name").indexOf(' ')).charAt(0).toUpperCase()
+              + Cookies.get("name").substring(0, Cookies.get("name").indexOf(' ')).slice(1) + "'s Expense Tracker"}</h1>
           <div className="balance">
             <h3> Your Balance</h3>
             <h1 style={{color: income-expense > 0? "green":"red"}}>{income-expense}</h1>
@@ -86,10 +94,12 @@ const ExpenseTracker = () => {
         </div>
           <div className="profile">
               {" "}
-              <img className="profile-photo" src={cookies.profilePhoto} />
-              <button className="sign-out-button">
+              <img className="profile-photo" src={Cookies.get("profilePhoto")} />
+              <Link to ="../" >
+              <button className="sign-out-button" onClick={()=>{removeCookies()}}>
                 Sign Out
               </button>
+              </Link>
           </div>
       </div>
       <div className="transactions">

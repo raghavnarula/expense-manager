@@ -1,16 +1,37 @@
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Auth from './pages/auth/'
 import ExpenseTracker from './pages/expense-tracker/index'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import Root from './pages/root/index'
 
 function App() {
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Auth/>,
+    },
+    {
+      path: "/expenses",
+      element: <ExpenseTracker/>,
+    },
+    {
+      path: "/root",
+      element: <Root />,
+      children: [
+        {
+          path: "final",
+          element: <div>Hello World</div>,
+        },
+      ],
+    },
+  ]);
+
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/" exact element={<Auth />} />
-          <Route path="/expenses" element={<ExpenseTracker />} />
-        </Routes>
-      </Router>
+          <RouterProvider router={router} />
     </div>
   );
 }
