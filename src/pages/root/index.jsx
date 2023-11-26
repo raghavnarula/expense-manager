@@ -1,7 +1,6 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const index = () => {
-  const navigate = useNavigate()
   return (
     <>
     <div>Login To Access the Page!</div>

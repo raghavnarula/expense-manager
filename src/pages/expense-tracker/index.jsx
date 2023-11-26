@@ -4,7 +4,6 @@ import { useEffect, useReducer,useState } from 'react';
 import {useGetTransactions} from '../../hooks/useGetTransactions';
 import { Link } from 'react-router-dom';
 import Cookies from "js-cookie";
-import Table from '../../components/Table';
 import TableComponent from '../../components/Table';
 import AddFormTransaction from '../../components/AddFormTransaction';
 
