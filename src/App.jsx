@@ -1,6 +1,5 @@
 import Auth from './pages/auth/'
 import ExpenseTracker from './pages/expense-tracker/index'
-import { useRouteError } from "react-router-dom";
 import {
   createBrowserRouter,
   RouterProvider,

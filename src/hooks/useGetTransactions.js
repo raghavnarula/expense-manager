@@ -1,7 +1,5 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
-// import { useCookies } from 'react-cookie'
 import { db } from "../config/firebase-config";
-// import { useEffect, useState } from "react";
 
 
 export const useGetTransactions = () => {
@@ -32,8 +30,5 @@ export const useGetTransactions = () => {
     });
     return totalExpense;
   }
-
-
-
   return {allTransactions,allIncome,allExpenses};
 }

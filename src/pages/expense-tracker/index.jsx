@@ -4,6 +4,9 @@ import { useEffect, useReducer,useState } from 'react';
 import {useGetTransactions} from '../../hooks/useGetTransactions';
 import { Link } from 'react-router-dom';
 import Cookies from "js-cookie";
+import Table from '../../components/Table';
+import TableComponent from '../../components/Table';
+import AddFormTransaction from '../../components/AddFormTransaction';
 
 const ExpenseTracker = () => {
   const {addTransaction} = useAddTransaction(); 
@@ -20,12 +23,13 @@ const ExpenseTracker = () => {
       transactionType: action.transactionType
     }
   },{
-    description:'None',
+    description:"",
     transactionAmount:0,
     transactionType:'None'
   })
 
   const getData = async ()=>{
+    console.log("Called Get Data")
     const querySnapshot = await allTransactions(Cookies.get("userID"))
     let updatedTransactions = [];
     querySnapshot.forEach((doc) => {
@@ -33,19 +37,23 @@ const ExpenseTracker = () => {
     });
     setTransactions(updatedTransactions);
     setIncome(await allIncome(Cookies.get("userID")))
+    console.log(income)
     setExpense(await allExpenses(Cookies.get("userID")))
+    console.log(expense,"==")
   }
 
   const onSubmit = async (e) => {
     e.preventDefault()
     await addTransaction(state.description,state.transactionAmount,state.transactionType) // added to database
     getData() // data updated 
+
   }
   
   useEffect(()=>{
     getData()
   },[])
-  
+
+
   const removeCookies = ()=>{
     Cookies.remove("firstName")
     Cookies.remove("isAuth")
@@ -76,21 +84,7 @@ const ExpenseTracker = () => {
                 <h3>{expense}</h3>
             </div>
           </div>
-          <form className='add-transaction' onSubmit={onSubmit}>
-              <input type="text" placeholder="Description" name="description" 
-                      onChange={(e)=>dispatch({description:e.target.value, transactionAmount:state.transactionAmount, transactionType:state.transactionType})} 
-                      required/>
-              <input type="number" placeholder="Amount" name="amount" 
-                      onChange={(e)=>dispatch({transactionAmount:e.target.value,description:state.description, transactionType:state.transactionType})} 
-                      required/>
-              <input type="radio" id="expense" name="radio" 
-                      onChange={(e)=>dispatch({ transactionType:e.target.value, description:state.description, transactionAmount:state.transactionAmount })} value="expense" />
-              <label htmlFor='expense'>Expense</label>
-              <input type="radio" id="income" value="income" name="radio" 
-                      onChange={(e)=>dispatch({transactionType:e.target.value, description:state.description, transactionAmount:state.transactionAmount})} />
-              <label htmlFor='income'>Income</label>
-              <button type="submit">Add Transaction</button>
-          </form>
+          <AddFormTransaction dispatch={dispatch} onSubmit={onSubmit} state={state}/>
         </div>
           <div className="profile">
               {" "}
@@ -103,19 +97,10 @@ const ExpenseTracker = () => {
           </div>
       </div>
       <div className="transactions">
-            <button onClick={()=>getData()}>Click Me!</button>
-            <ul>
-              {transactions.map((item, index) => (
-                <li key={index}>
-                  <h3>{item.description}</h3>
-                  <h4>Amount: {item.transactionAmount} <span style={{color: item.transactionType==="expense" ? "green":"red"}}>{item.transactionType}</span></h4>
-                </li>
-              ))}
-          </ul>
+      <TableComponent  transactions = {transactions}/>
       </div>
     </>
     
   )
 }
-
 export default ExpenseTracker
